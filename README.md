@@ -5,3 +5,6 @@ https://docs.google.com/document/d/1hfGhFien_EARCN1tub4zvWgL_WsCmKKEk7TKBwpABOs/
 
 # Trello
 https://trello.com/b/SN8Auewx/nyhetsaggregator
+
+# Miro
+https://miro.com/app/board/uXjVLBqv7mY=/
