@@ -62,6 +62,7 @@ function listItems(items = newsData) {
   });
 }
 console.log("Hello News!");
+
 // Sporten
 fetch(
   `https://api.nytimes.com/svc/search/v2/articlesearch.json?fq=news_desk:("Sports") AND glocations:("SWEDEN")&page=1&api-key=${apiKey}`
@@ -85,12 +86,13 @@ fetch(
     }));
     newsData.push(...mappedData);
     // console.log(mappedData);
-    listItems();
+    // listItems();
   })
   .catch((error) => {
     console.log(error);
   });
-// Ekonomi
+
+  // Ekonomi
 const apiKeyFinance = "Gb0Zk23fNHM0ID44E87pSMwzyykofNwp";
 fetch(
   `https://api.polygon.io/v2/reference/news?limit=10&apiKey=${apiKeyFinance}`
@@ -114,12 +116,13 @@ fetch(
     }));
     // Push the mapped data into the global newsData array
     newsData.push(...mappedData);
-    listItems();
+    // listItems();
   })
   .catch((error) => {
     console.log(error);
   });
-// TEKNIK
+
+  // TEKNIK
 const apiKeyTech = "pub_60058e2153ce481b3839350359f8847a3946c";
 fetch(
   `https://newsdata.io/api/1/latest?apikey=pub_60058e2153ce481b3839350359f8847a3946c&category=technology&language=en`
@@ -148,7 +151,9 @@ fetch(
   })
   .catch((error) => {
     console.log(error);
+
   });
+
 
 
 const categorySelect = document.querySelector("#categoryFilter");
