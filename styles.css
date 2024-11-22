@@ -82,7 +82,7 @@ main {
     flex: 1;
     min-height: 70vh;
     padding: 20px;
-    background-color: #f4f4f4;
+    background-color: #eaeaea;
 }
 
 .top-stories {
@@ -134,6 +134,13 @@ main {
 
 .news-item h2 {
     margin: 0 0 10px;
+}
+
+.newsList img {
+    width: 350px;
+    height: 300px;
+    border-radius: 5px;
+    object-fit: scale-down;
 }
 
 footer {
