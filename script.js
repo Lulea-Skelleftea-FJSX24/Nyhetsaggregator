@@ -1,6 +1,6 @@
 let newsData = [];
 
-console.log("Hello News!");
+// console.log("Hello News!");
 const apiKey = "kzvccXW2l1EAE3toa0N5GFkWFozAqtqv";
 fetch(`https://api.nytimes.com/svc/topstories/v2/home.json?api-key=${apiKey}`)
   .then((response) => {
@@ -36,10 +36,10 @@ function listItems() {
   const getTheUl = document.getElementsByClassName("newsList");
   newsData.forEach((createList) => {
     const listItemsForPage = document.createElement("li");
-    if (createList.multimedia) {
+    if (createList.multimedia && createList.multimedia.url) {
       if (createList.multimedia.url.startsWith("images/")) {
-        createList.multimeda.url =
-          "https://nyt.com/" + createList.multimeda.url;
+        createList.multimedia.url =
+          "https://nyt.com/" + createList.multimedia.url;
       }
       console.log(createList.multimedia);
       listItemsForPage.innerHTML = `<h3>${createList.title}</h3>
@@ -109,29 +109,29 @@ fetch(
       url: item.article_url, // url for site
       abstract: item.description, // Text to put in p
       byline: item.author, // Authors
-      multimedia: item.image_url,
+      multimedia: item.image_url ? { url: item.image_url } : null, // Ensure it's an object if it exists
       datum: item.published_utc, // Jpeg
     }));
     // Push the mapped data into the global newsData array
     newsData.push(...mappedData);
-    // listItems();
+    listItems();
   })
   .catch((error) => {
     console.log(error);
   });
 // TEKNIK
-fetch(
-  `https://api.nytimes.com/svc/search/v2/articlesearch.json?fq=news_desk:("Technology")&api-key=${apiKey}`
-)
-  .then((response) => {
-    if (!response.ok) {
-      throw new Error(`fel med response ${response.statusText}`);
-    }
-    return response.json();
-  })
-  .then((data) => {
-    // console.log("TEKNIK API", data);
-  })
-  .catch((error) => {
-    console.log(error);
-  });
+// fetch(
+//   `https://api.nytimes.com/svc/search/v2/articlesearch.json?fq=news_desk:("Technology")&api-key=${apiKey}`
+// )
+//   .then((response) => {
+//     if (!response.ok) {
+//       throw new Error(`fel med response ${response.statusText}`);
+//     }
+//     return response.json();
+//   })
+//   .then((data) => {
+//     // console.log("TEKNIK API", data);
+//   })
+//   .catch((error) => {
+//     console.log(error);
+//   });
