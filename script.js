@@ -29,20 +29,24 @@ function heroLayout(articles) {
   const imageUrl1 = article1.media && article1.media[0] && article1.media[0]['media-metadata'] ? article1.media[0]['media-metadata'][2].url : '';
 
   article1Element.innerHTML = `
-    <h1>${article1.title}</h1>
-    <p>${article1.abstract}</p>
-    <img src="${imageUrl1}" alt="Bild av nyhet">
-    <a href="${article1.url}" target="_blank">Läs Mer Här</a>
+    <h1 class="heroArticleTitle">${article1.title}</h1>
+    <div class="articleContent">
+        <p class="heroAbstract">${article1.abstract}</p>
+        <img src="${imageUrl1}" alt="Bild av nyhet">
+    </div>
+    <a class="buttonToArticle" href="${article1.url}" target="_blank">Läs Mer Här</a>
   `;
 
   const article2 = articles[1];
   const imageUrl2 = article2.media && article2.media[0] && article2.media[0]['media-metadata'] ? article2.media[0]['media-metadata'][2].url : '';
 
   article2Element.innerHTML = `
-    <h1>${article2.title}</h1>
-    <p>${article2.abstract}</p>
-    <img src="${imageUrl2}" alt="Bild av nyhet">
-    <a href="${article2.url}" target="_blank">Läs Mer Här</a>
+    <h1 class="heroArticleTitle">${article2.title}</h1>
+    <div class="articleContent">
+        <p class="heroAbstract">${article2.abstract}</p>
+        <img src="${imageUrl2}" alt="Bild av nyhet">
+    </div>
+    <a class="buttonToArticle" href="${article2.url}" target="_blank">Läs Mer Här</a>
   `;
 }
 
