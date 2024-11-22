@@ -31,10 +31,10 @@ fetch(`https://api.nytimes.com/svc/topstories/v2/home.json?api-key=${apiKey}`)
 console.log("Newsdata array", newsData);
 // getElementByClassName("newsList") = UL!
 
-function listItems() {
+function listItems(items = newsData) {
   // const listItems = document.createElement("li");
   const getTheUl = document.getElementsByClassName("newsList");
-  newsData.forEach((createList) => {
+  items.forEach((createList) => {
     const listItemsForPage = document.createElement("li");
     if (createList.multimedia && createList.multimedia.url) {
       if (createList.multimedia.url.startsWith("images/")) {
@@ -151,4 +151,32 @@ fetch(
   })
   .catch((error) => {
     console.log(error);
+<<<<<<< HEAD
   });
+=======
+  });
+
+
+const categorySelect = document.querySelector("#categoryFilter");
+categorySelect.addEventListener("change", filterByCategory)
+function filterByCategory(event) {
+  let filteredNewsData = [];
+  // Filter news by category
+  if (categorySelect.value==="all") {
+    filteredNewsData = newsData;
+  } else {
+    filteredNewsData = newsData.filter(item => item.category === categorySelect.value);
+  }
+
+  // Clear news list
+  const newsList = document.querySelector(".newsList");
+  Array.from(newsList.children).forEach(child => newsList.removeChild(child));
+  // If no matches display error
+  if (filteredNewsData.length === 0) {
+    newsList.innerHTML="<p>Inga nyheter i kategorin.</p>";
+  } else {
+    // Display filtered items
+    listItems(filteredNewsData);
+  }
+}
+>>>>>>> 2b31255413b6317365e30ff2b65ed6c67c860018
