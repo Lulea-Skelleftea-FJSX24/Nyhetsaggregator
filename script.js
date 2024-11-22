@@ -38,8 +38,8 @@ function listItems() {
     const listItemsForPage = document.createElement("li");
     if (createList.multimedia) {
       if (createList.multimedia.url.startsWith("images/")) {
-        createList.multimeda.url =
-          "https://nyt.com/" + createList.multimeda.url;
+        createList.multimedia.url =
+          "https://nyt.com/" + createList.multimedia.url;
       }
       console.log(createList.multimedia);
       listItemsForPage.innerHTML = `<h3>${createList.title}</h3>
