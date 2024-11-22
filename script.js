@@ -87,7 +87,7 @@ fetch(
   .catch((error) => {
     console.log(error);
   });
-Ekonomi;
+// Ekonomi;
 fetch(
   `https://api.nytimes.com/svc/search/v2/articlesearch.json?fq=news_desk:("Financial")&begin_date=19000101&end_date=20241121t&api-key=${apiKey}`
 )
