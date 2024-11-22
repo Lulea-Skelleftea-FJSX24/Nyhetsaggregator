@@ -36,23 +36,25 @@ function listItems() {
   const getTheUl = document.getElementsByClassName("newsList");
   newsData.forEach((createList) => {
     const listItemsForPage = document.createElement("li");
-    listItemsForPage.innerHTML = `<h3>${createList.title}</h3>
-                           <img src="${createList.multimedia.url}" alt="pic of news">
-                           <p>${createList.abstract}</p>
-                           <p class="authors">${createList.byline}</p>
-                           <a target="_blank" href="${createList.url}">Läs Mer Här</a>
-                           <p class="authors">${createList.datum}</p>
-    `;
-    if (createList.multimedia === undefined) {
+    if(createList.multimedia) {
+      if (createList.multimedia.url.startsWith("images/")) {
+        createList.multimeda.url = "https://nyt.com/" + createList.multimeda.url;
+      }
+      console.log(createList.multimedia)
       listItemsForPage.innerHTML = `<h3>${createList.title}</h3>
-                           
-                           <p>${createList.abstract}</p>
-                           <p class="authors">${createList.byline}</p>
-                           <a target="_blank" href="${createList.url}">Läs Mer Här</a>
-                           <p class="authors">${createList.datum}</p>
-    `;
+                            <img src="${createList.multimedia.url}" alt="pic of news">
+                            <p>${createList.abstract}</p>
+                            <p class="authors">${createList.byline}</p>
+                            <a target="_blank" href="${createList.url}">Läs Mer Här</a>
+                            <p class="authors">${createList.datum}</p>
+      `;
     } else {
-      console.log("error");
+        listItemsForPage.innerHTML = `<h3>${createList.title}</h3>
+                            <p>${createList.abstract}</p>
+                            <p class="authors">${createList.byline}</p>
+                            <a target="_blank" href="${createList.url}">Läs Mer Här</a>
+                            <p class="authors">${createList.datum}</p>
+      `;
     }
     getTheUl[0].appendChild(listItemsForPage);
     console.log(newsData);
@@ -87,7 +89,7 @@ fetch(
   .catch((error) => {
     console.log(error);
   });
-Ekonomi;
+// Ekonomi;
 fetch(
   `https://api.nytimes.com/svc/search/v2/articlesearch.json?fq=news_desk:("Financial")&begin_date=19000101&end_date=20241121t&api-key=${apiKey}`
 )
