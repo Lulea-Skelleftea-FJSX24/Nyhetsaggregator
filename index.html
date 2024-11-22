@@ -1,16 +1,102 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="sv">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Document</title>
+    <title>Norrskensnytt</title>
     <link rel="stylesheet" href="/styles.css" />
   </head>
   <body>
-    <h1>Hejsan Nyheter 1</h1>
-    <div>
-      <ul class="newsList"></ul>
+
+    <header>
+      <div class="header-container">
+        <img
+        id="logo"
+        src="img/Norrskensnytt.png"
+        alt="Logga för Norrksensnytt"
+        width="200px"/>
+        
+        <h1>Norrskensnytt</h1>
+        
+      </div>
+    </header>
+
+      <section class="top-stories">
+        <article class="story">
+          <h2>Senaste nytt</h2>
+          <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Dolorem autem repellat omnis doloremque amet dicta.</p>
+        
+        </article>
+      </section>
+      
+
+
+    <section class="search-section">
+      <div class="search-container">
+        <input type="text" id="search" placeholder="Sök nyheter...">
+        <button id="searchBtn">Sök</button>
+        <select id="categoryFilter">
+          <option value="">Alla kategorier</option>
+          <option value="sport">Sport</option>
+          <option value="technology">Teknik</option>
+          <option value="business">Ekonomi</option>
+        </select>
+      </div>
+    </section>
+  <main id="newsContainer">
+    <ul class="newsList">
+
+    </ul>
+
+  </main>
+    
+  
+  <script src="/script.js"></script>
+
+  
+  
+  <footer>
+    <div class="footer-container">
+    
+    <div class="footer-section">
+      <h4>Snabblänkar</h4>
+      <ul>
+        <li><a href="/">Hem</a></li>
+        <li><a href="/sport">Sport</a></li>
+        <li><a href="/teknik">Teknik</a></li>
+        <li><a href="/ekonomi">Ekonomi</a></li>
+        <li><a href="/om-oss">Om oss</a></li>
+        <li><a href="/kontakt">Kontakt</a></li>
+      </ul>
     </div>
-    <script src="/script.js"></script>
+
+    
+    <div class="footer-section">
+      <h4>Följ oss</h4>
+      <ul class="social-links">
+        <li><a href="https://facebook.com">Facebook</a></li>
+        <li><a href="https://twitter.com">Twitter</a></li>
+        <li><a href="https://instagram.com">Instagram</a></li>
+      </ul>
+    </div>
+
+    <div class="footer-section">
+      <h4>Prenumerera</h4>
+      <form>
+        <input type="email" placeholder="Din e-postadress" required>
+        <button type="submit">Prenumerera</button>
+      </form>
+    </div>
+  </div>
+
+  
+  <div class="footer-bottom">
+    <p>© 2024 Norrskensnytt. Alla rättigheter förbehållna.</p>
+    <p><a href="/privacy-policy">Integritetspolicy</a> | <a href="/terms">Användarvillkor</a></p>
+  </div>
+
+  </footer>
+
+
   </body>
 </html>
