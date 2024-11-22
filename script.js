@@ -173,3 +173,50 @@ function filterByCategory(event) {
     listItems(filteredNewsData);
   }
 }
+
+const searchForm = document.querySelector(".search-container>form");
+searchForm.addEventListener("submit", search);
+function search(event) {
+  event.preventDefault();
+
+  const searchTextInput = document.querySelector("#search");
+  let searchText = searchTextInput.value.trim()
+  
+  fetch(`https://api.nytimes.com/svc/search/v2/articlesearch.json?q=${searchText}&api-key=kzvccXW2l1EAE3toa0N5GFkWFozAqtqv`)
+  .then((response) => {
+    if (!response.ok) {
+      throw new Error(`fel med response ${response.statusText}`);
+    }
+    return response.json();
+  })
+  .then((data) => {
+    // console.log("search response",data)
+    if (data.status !== "OK") {
+      throw new Error("Response not ok", data)
+    }
+ 
+    // Clear news list
+    const newsList = document.querySelector(".newsList");
+    Array.from(newsList.children).forEach(child => newsList.removeChild(child));
+    
+    // If no matches display error
+    if (data.response.docs.length === 0) {
+      newsList.innerHTML="<p>Inga sökresultat.</p>";
+    } else {
+      
+      // Display filtered items
+      listItems(data.response.docs.map((item) => ({
+        category: "search",
+        title: item.headline.main, // Title
+        url: item.web_url, // url for site
+        abstract: item.abstract, // Text to put in p
+        byline: item.byline, // Authors
+        multimedia: item.multimedia[1],
+        datum: item.pub_date, // Jpeg
+      })));
+    }
+  })
+  .catch((error) => {
+    console.log(error);
+  });
+}
