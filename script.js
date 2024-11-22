@@ -36,11 +36,12 @@ function listItems() {
   const getTheUl = document.getElementsByClassName("newsList");
   newsData.forEach((createList) => {
     const listItemsForPage = document.createElement("li");
-    if(createList.multimedia) {
+    if (createList.multimedia) {
       if (createList.multimedia.url.startsWith("images/")) {
-        createList.multimeda.url = "https://nyt.com/" + createList.multimeda.url;
+        createList.multimeda.url =
+          "https://nyt.com/" + createList.multimeda.url;
       }
-      console.log(createList.multimedia)
+      console.log(createList.multimedia);
       listItemsForPage.innerHTML = `<h3>${createList.title}</h3>
                             <img src="${createList.multimedia.url}" alt="pic of news">
                             <p>${createList.abstract}</p>
@@ -49,7 +50,7 @@ function listItems() {
                             <p class="authors">${createList.datum}</p>
       `;
     } else {
-        listItemsForPage.innerHTML = `<h3>${createList.title}</h3>
+      listItemsForPage.innerHTML = `<h3>${createList.title}</h3>
                             <p>${createList.abstract}</p>
                             <p class="authors">${createList.byline}</p>
                             <a target="_blank" href="${createList.url}">Läs Mer Här</a>
@@ -89,9 +90,10 @@ fetch(
   .catch((error) => {
     console.log(error);
   });
-// Ekonomi;
+// Ekonomi
+const apiKeyFinance = "Gb0Zk23fNHM0ID44E87pSMwzyykofNwp";
 fetch(
-  `https://api.nytimes.com/svc/search/v2/articlesearch.json?fq=news_desk:("Financial")&begin_date=19000101&end_date=20241121t&api-key=${apiKey}`
+  `https://api.polygon.io/v2/reference/news?limit=10&apiKey=${apiKeyFinance}`
 )
   .then((response) => {
     if (!response.ok) {
@@ -100,7 +102,19 @@ fetch(
     return response.json();
   })
   .then((data) => {
-    // console.log("Ekonomi API", data);
+    console.log("Ekonomi API", data);
+    const mappedData = data.results.map((item) => ({
+      category: "Finance",
+      title: item.title, // Title
+      url: item.article_url, // url for site
+      abstract: item.description, // Text to put in p
+      byline: item.author, // Authors
+      multimedia: item.image_url,
+      datum: item.published_utc, // Jpeg
+    }));
+    // Push the mapped data into the global newsData array
+    newsData.push(...mappedData);
+    // listItems();
   })
   .catch((error) => {
     console.log(error);
