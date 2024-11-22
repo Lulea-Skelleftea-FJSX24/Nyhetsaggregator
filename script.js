@@ -120,18 +120,32 @@ fetch(
     console.log(error);
   });
 // TEKNIK
-// fetch(
-//   `https://api.nytimes.com/svc/search/v2/articlesearch.json?fq=news_desk:("Technology")&api-key=${apiKey}`
-// )
-//   .then((response) => {
-//     if (!response.ok) {
-//       throw new Error(`fel med response ${response.statusText}`);
-//     }
-//     return response.json();
-//   })
-//   .then((data) => {
-//     // console.log("TEKNIK API", data);
-//   })
-//   .catch((error) => {
-//     console.log(error);
-//   });
+const apiKeyTech = "pub_60058e2153ce481b3839350359f8847a3946c";
+fetch(
+  `https://newsdata.io/api/1/latest?apikey=pub_60058e2153ce481b3839350359f8847a3946c&category=technology&language=en`
+)
+  .then((response) => {
+    if (!response.ok) {
+      throw new Error(`fel med response ${response.statusText}`);
+    }
+    return response.json();
+  })
+  .then((data) => {
+    console.log("pizza API", data);
+    const mappedData = data.results.map((item) => ({
+      category: "technology",
+      title: item.title, // Title
+      url: item.link, // url for site
+      abstract: item.description, // Text to put in p
+      // byline: item.byline, // Authors
+      multimedia: item.image_url,
+      datum: item.pubDate, // Jpeg
+    }));
+    // Push the mapped data into the global newsData array
+    newsData.push(...mappedData);
+    console.log(newsData);
+    listItems();
+  })
+  .catch((error) => {
+    console.log(error);
+  });
