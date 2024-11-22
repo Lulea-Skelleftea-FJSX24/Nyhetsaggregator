@@ -151,10 +151,9 @@ fetch(
   })
   .catch((error) => {
     console.log(error);
-<<<<<<< HEAD
+
   });
-=======
-  });
+
 
 
 const categorySelect = document.querySelector("#categoryFilter");
@@ -179,4 +178,3 @@ function filterByCategory(event) {
     listItems(filteredNewsData);
   }
 }
->>>>>>> 2b31255413b6317365e30ff2b65ed6c67c860018
