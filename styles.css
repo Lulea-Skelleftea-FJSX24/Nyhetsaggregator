@@ -1,9 +1,21 @@
+:root {
+    --mainColor: #314c5e;
+    --secondaryColor: #243642;
+    --backgroundColor: #0c202d;
+    --detailColor: #006A67;
+    --textColor: rgb(235, 235, 235);
+}
+
+body, html {
+    overflow-x: hidden;
+}
+
 body {
     font-family: Arial, sans-serif;
     line-height: 1.6;
     margin: 0;
     padding: 0;
-    background-color: #f4f4f4;
+    background-color: var(--backgroundColor);
     display: flex;
     flex-direction: column;
     height: 100%;
@@ -14,8 +26,8 @@ header {
     align-items: center;
     justify-content: space-between;
     padding: 10px 20px;
-    background: #333;
-    color: white;
+    background: var(--secondaryColor);
+    color: var(--textColor);
 }
 
 .header-container {
@@ -26,12 +38,13 @@ header {
 
 #logo {
     margin-right: 20px;
+    border-radius: 20%;
 }
 
 h1 {
     flex-grow: 1;
     margin: 0;
-    font-size: 24px;
+    font-size: 3rem;
 }
 
 
@@ -52,7 +65,7 @@ h1 {
     justify-content: center;
     align-items: center;
     padding: 20px;
-    background-color: #f8f8f8;
+    background-color: var(--mainColor);
     flex-shrink: 0;
     transform: translateY(-50%);
 }
@@ -81,31 +94,64 @@ h1 {
 main {
     flex: 1;
     min-height: 70vh;
-    padding: 20px;
-    background-color: #eaeaea;
+    padding: 30px;
+    margin: 35px;
+    background-color: var(--secondaryColor);
 }
 
-.top-stories {
-    display: flex;
-    justify-content: space-around;
-    padding: 20px;
-    background-color: #fff;
+.newsList li {
+    background-color: var(--mainColor);
+    color: var(--textColor);
+    padding: 3rem;
+    list-style: none;
+    margin: 2rem;
+    border-radius: 5px;
+}
+
+.newsList li h3 {
+    font-size: 30px;
+}
+
+.newsList li button, .articleContent button {
+    padding: 10px 15px;
+    background-color: var(--detailColor);
+    color: var(--textColor);
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    text-decoration: none;
+    font-size: 16px;
+    transition: background-color 0.3s, transform 0.3s, box-shadow 0.3s;
+}
+
+.newsList li button:hover, .articleContent button:hover {
+    transform: scale(1.05);
+    box-shadow: 0 4px 18px rgba(25, 163, 96, 0.5);
+}
+
+.articleContent button {
+    position: absolute;
+    bottom: 10px;
+    right: 15px;
 }
 
 .heroArticles {
     flex: 1;
-    margin: 10px;
-    margin-bottom: 60px;
+    margin: 35px;
+    margin-bottom: 77px;
     text-align: center;
-    background: #eaeaea;
+    background: var(--secondaryColor);
+    color: var(--textColor);
     border-radius: 5px;
-    padding: 15px;
+    padding: 40px;
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
 }
 
 .heroArticles img {
+    display: block;
     max-width: 100%;
-    border-radius: 5px;
+    border-radius: 6px;
+    margin-right: 15px;
 }
 
 .heroArticles h2 {
@@ -117,11 +163,17 @@ main {
     display: flex;
     justify-content: space-evenly;
     gap: 20px;
+    background: var(--secondaryColor);
+    height: 29rem;
+    margin-bottom: 15px;
 }
 
 #article1, #article2 {
+    position: relative;
     width: 45%;   
-    margin-top: 10px; 
+    margin-top: 10px;
+    box-shadow: 0 4px 30px rgba(0, 128, 128, 1.5);
+    border-radius: 10px;
 }
 
 .articleContent {
@@ -131,22 +183,17 @@ main {
 .heroArticleTitle {
     font-size: 1.5rem;
     min-height: 5rem;
+    margin: 10px 0 10px 0;
 }
 
 .heroAbstract {
     font-size: 18px;
-    margin: 6px;
+    margin: 15px;
 }
 
 #categoryFilter {
     padding: 10px;
     font-size: 16px;
-}
-
-
-main {
-    padding: 20px;
-    background-color: #f4f4f4;
 }
 
 .news-item {
@@ -163,14 +210,15 @@ main {
 
 .newsList img {
     width: 350px;
-    height: 300px;
+    height: 234px;
     border-radius: 5px;
     object-fit: scale-down;
+    border: solid var(--textColor);
 }
 
 footer {
-    background-color: #333;
-    color: white;
+    background: linear-gradient(to bottom, #262626, #070707);
+    color: var(--textColor);
     padding: 20px 0;
     text-align: center;
     margin-top: 20px;
@@ -245,10 +293,4 @@ footer a:hover {
   
 .footer-section form button:hover {
     background-color: #777;
-}
-
-.buttonToArticle {
-    position: relative;
-    top: 10px;
-    right: -324px;
 }
