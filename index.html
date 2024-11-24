@@ -7,94 +7,102 @@
     <link rel="stylesheet" href="/styles.css" />
   </head>
   <body>
-    <header>
-      <div class="header-container">
-        <img
-        id="logo"
-        src="img/Norrskensnytt.png"
-        alt="Logga för Norrksensnytt"
-        width="200px"/>
-        
-        <h1>Norrskensnytt</h1>
-        
-      </div>
-    </header>
+<header>
+  <div class="header-container">
+    <img
+    id="logo"
+    src="img/Norrskensnytt.png"
+    alt="Logga för Norrksensnytt"
+    width="200px"
+    />
+    
+    <h1>Norrskensnytt</h1>
+  </div>
+</header>
 
-      <section class="top-stories">
-        <article class="story">
-          <h2>Senaste nytt</h2>
-          <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Dolorem autem repellat omnis doloremque amet dicta.</p>
-        
-        </article>
-      </section>
-      
+<article class="heroArticles">
+  <h2>Mest klickade</h2>
+  <section class="heroArticleContainer">
 
+    <section id="article1">
+      //Article info
+    </section>
+
+    <section id="article2">
+      //Article info
+    </section>
+
+  </section>
+
+  <div id="errorModal" class="modal">
+    <div class="modal-content">
+      <span id="closeModal" class="close">&times;</span>
+      <p id="errorMessage"></p>
+    </div>
+  </div>
+
+</article>
 
     <section class="search-section">
       <div class="search-container">
-        <input type="text" id="search" placeholder="Sök nyheter...">
-        <button id="searchBtn">Sök</button>
+        <form id="searchForm">
+          <input type="text" id="search" placeholder="Sök nyheter..." required />
+          <button id="searchBtn">Sök</button>
+        </form>
         <select id="categoryFilter">
-          <option value="">Alla kategorier</option>
+          <option value="all">Alla kategorier</option>
+          <option value="Top news">Toppnyheter</option>
           <option value="sport">Sport</option>
+          <option value="Finance">Ekonomi</option>
           <option value="technology">Teknik</option>
-          <option value="business">Ekonomi</option>
         </select>
       </div>
     </section>
-  <main id="newsContainer">
-    <ul class="newsList">
+    <main id="newsContainer">
+      <ul class="newsList"></ul>
+    </main>
 
-    </ul>
+    <footer>
+      <div class="footer-container">
+        <div class="footer-section">
+          <h4>Snabblänkar</h4>
+          <ul>
+            <li><a href="/">Hem</a></li>
+            <li><a href="/sport">Sport</a></li>
+            <li><a href="/teknik">Teknik</a></li>
+            <li><a href="/ekonomi">Ekonomi</a></li>
+            <li><a href="/om-oss">Om oss</a></li>
+            <li><a href="/kontakt">Kontakt</a></li>
+          </ul>
+        </div>
 
-  </main>
-    
-  
-  <script src="/script.js"></script>
+        <div class="footer-section">
+          <h4>Följ oss</h4>
+          <ul class="social-links">
+            <li><a href="https://facebook.com">Facebook</a></li>
+            <li><a href="https://twitter.com">Twitter</a></li>
+            <li><a href="https://instagram.com">Instagram</a></li>
+          </ul>
+        </div>
 
-  
-  
-  <footer>
-    <div class="footer-container">
-    
-    <div class="footer-section">
-      <h4>Snabblänkar</h4>
-      <ul>
-        <li><a href="/">Hem</a></li>
-        <li><a href="/sport">Sport</a></li>
-        <li><a href="/teknik">Teknik</a></li>
-        <li><a href="/ekonomi">Ekonomi</a></li>
-        <li><a href="/om-oss">Om oss</a></li>
-        <li><a href="/kontakt">Kontakt</a></li>
-      </ul>
-    </div>
+        <div class="footer-section">
+          <h4>Prenumerera</h4>
+          <form>
+            <input type="email" placeholder="Din e-postadress" required />
+            <button type="submit">Prenumerera</button>
+          </form>
+        </div>
+      </div>
 
-    
-    <div class="footer-section">
-      <h4>Följ oss</h4>
-      <ul class="social-links">
-        <li><a href="https://facebook.com">Facebook</a></li>
-        <li><a href="https://twitter.com">Twitter</a></li>
-        <li><a href="https://instagram.com">Instagram</a></li>
-      </ul>
-    </div>
+      <div class="footer-bottom">
+        <p>© 2024 Norrskensnytt. Alla rättigheter förbehållna.</p>
+        <p>
+          <a href="/privacy-policy">Integritetspolicy</a> |
+          <a href="/terms">Användarvillkor</a>
+        </p>
+      </div>
+    </footer>
 
-    <div class="footer-section">
-      <h4>Prenumerera</h4>
-      <form>
-        <input type="email" placeholder="Din e-postadress" required>
-        <button type="submit">Prenumerera</button>
-      </form>
-    </div>
-  </div>
-
-  
-  <div class="footer-bottom">
-    <p>© 2024 Norrskensnytt. Alla rättigheter förbehållna.</p>
-    <p><a href="/privacy-policy">Integritetspolicy</a> | <a href="/terms">Användarvillkor</a></p>
-  </div>
-
-  </footer>
-
+    <script src="/script.js"></script>
   </body>
 </html>
