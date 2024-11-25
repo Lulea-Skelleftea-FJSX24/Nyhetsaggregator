@@ -85,10 +85,6 @@ h1 {
 #searchBtn {
     padding: 10px;
     font-size: 16px;
-    background-color: #555;
-    color: white;
-    border: none;
-    cursor: pointer;
 }
 
 main {
@@ -114,6 +110,8 @@ main {
 
 .newsList li button, .articleContent button {
     padding: 10px 15px;
+}
+.newsList li button, .articleContent button, #searchBtn {
     background-color: var(--detailColor);
     color: var(--textColor);
     border: none;
@@ -124,7 +122,7 @@ main {
     transition: background-color 0.3s, transform 0.3s, box-shadow 0.3s;
 }
 
-.newsList li button:hover, .articleContent button:hover {
+.newsList li button:hover, .articleContent button:hover, #searchBtn:hover{
     transform: scale(1.05);
     box-shadow: 0 4px 18px rgba(25, 163, 96, 0.5);
 }
