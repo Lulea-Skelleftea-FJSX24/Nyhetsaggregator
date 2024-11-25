@@ -229,10 +229,9 @@ function search(event) {
   });
 }
 
-const mostViewedapiKey = "kzvccXW2l1EAE3toa0N5GFkWFozAqtqv";
   // Most viewed last 7 days
   fetch(
-    `https://api.nytimes.com/svc/mostpopular/v2/viewed/1.json?api-key=${mostViewedapiKey}`
+    `https://api.nytimes.com/svc/mostpopular/v2/viewed/1.json?api-key=${apiKey}`
   )
     .then((response) => {
       if (!response.ok) {
