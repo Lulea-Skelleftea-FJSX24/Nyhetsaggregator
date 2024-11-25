@@ -175,7 +175,7 @@ function listItems(items = newsData) {
         <img src="${createList.multimedia.url}" alt="pic of news">
         <p>${createList.abstract}</p>
         <p class="authors">${createList.byline}</p>
-        <a target="_blank" href="${createList.url}">Läs Mer Här</a>
+        <button class="buttonToArticle" onclick="window.open('${createList.url}', '_blank')">Läs Mer Här</button>
         <p class="authors">${createList.datum}</p>
       `;
     } else {
@@ -183,7 +183,7 @@ function listItems(items = newsData) {
         <h3>${createList.title}</h3>
         <p>${createList.abstract}</p>
         <p class="authors">${createList.byline}</p>
-        <a target="_blank" href="${createList.url}">Läs Mer Här</a>
+        <button class="buttonToArticle" onclick="window.open('${createList.url}', '_blank')">Läs Mer Här</button>
         <p class="authors">${createList.datum}</p>
       `;
     }
@@ -263,8 +263,8 @@ function heroLayout(articles) {
     <div class="articleContent">
       <p class="heroAbstract">${article1.abstract}</p>
       <img src="${imageUrl1}" alt="Bild av nyhet">
+      <button class="buttonToArticle" onclick="window.open('${article1.url}', '_blank')">Läs Mer Här</button>
     </div>
-    <a class="buttonToArticle" href="${article1.url}" target="_blank">Läs Mer Här</a>
   `;
 
   const article2 = articles[1];
@@ -274,7 +274,7 @@ function heroLayout(articles) {
     <div class="articleContent">
       <p class="heroAbstract">${article2.abstract}</p>
       <img src="${imageUrl2}" alt="Bild av nyhet">
+      <button class="buttonToArticle" onclick="window.open('${article2.url}', '_blank')">Läs Mer Här</button>
     </div>
-    <a class="buttonToArticle" href="${article2.url}" target="_blank">Läs Mer Här</a>
   `;
 }
