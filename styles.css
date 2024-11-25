@@ -76,6 +76,10 @@ h1 {
     flex-wrap: wrap;
 }
 
+#categoryFilter:hover {
+    box-shadow: 0 4px 18px rgba(25, 163, 96, 0.5);
+}
+
 #search {
     padding: 10px;
     font-size: 16px;
