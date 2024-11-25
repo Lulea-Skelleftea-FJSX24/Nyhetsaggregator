@@ -99,7 +99,7 @@ async function fetchSports() {
       title: item.headline.main,
       url: item.web_url,
       abstract: item.abstract,
-      byline: item.byline,
+      byline: item.byline.original,
       multimedia: item.multimedia[1],
       datum: item.pub_date,
     }));
@@ -138,6 +138,7 @@ async function fetchTechNews() {
       category: "technology",
       title: item.title,
       url: item.link,
+      byline: item.source_name,
       abstract: item.description,
       multimedia: item.image_url,
       datum: item.pubDate,
