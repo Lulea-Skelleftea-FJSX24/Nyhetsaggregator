@@ -233,6 +233,11 @@ main {
     display: none;
 }
   
+.error-modal-content p {
+    position: relative;
+    left: -880px;
+}
+
 .error-modal-content {
     display: flex;
     flex-direction: row-reverse;
@@ -242,12 +247,12 @@ main {
     padding: 20px;
     border: 1px solid #888;
     width: 80%;
-    top: -50px;
     box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
     border-radius: 10px;
 }
 
 .close-modal {
+    position: fixed;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -264,7 +269,7 @@ main {
   
 .close-modal:hover,
 .close-modal:focus {
-    color: black;
+    background-color: red;
     text-decoration: none;
     cursor: pointer;
 }
