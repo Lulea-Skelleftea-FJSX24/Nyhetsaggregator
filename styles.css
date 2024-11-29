@@ -1,5 +1,5 @@
 .error-modal {
-    /* display: none; Bör vara dold som standard */
+    display: none;
     position: fixed;
     display: flex;
     justify-content: center;
