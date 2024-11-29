@@ -48,6 +48,7 @@ async function limitedRequest(url) {
   if (requestCount >= maxRequestsPerMinute) {
     const timeToNextMinute = 60000 - timeElapsed % 60000; // Wait until the next minute
     console.log(`För många förfrågningar på kort tid. Väntar i ${timeToNextMinute / 1000} sekunder...`);
+    showError(`För många förfrågningar på kort tid. Väntar i ${timeToNextMinute / 1000} sekunder`);
     await new Promise(resolve => setTimeout(resolve, timeToNextMinute));
     requestCount = 0; // Restarts the counter when a new minute begins
   }
@@ -85,8 +86,8 @@ async function fetchNews() {
     newsData.push(...mappedData);
     listItems();  // Call listItems to display data
   } catch (error) {
-    console.error("Error fetching NY Times News:", error);
-    showError("Something went wrong while fetching the news. Please try again later.");
+    console.error("Error med hämtningen av NY Times News:", error);
+    showError("Något gick fel med hämtningen av nyheterna. Försök igen senare.");
   }
 }
 
@@ -105,8 +106,8 @@ async function fetchSports() {
     }));
     newsData.push(...mappedData);
   } catch (error) {
-    console.error("Error fetching Sports News:", error);
-    showError("Something went wrong while fetching the sports news. Please try again later.");
+    console.error("Error med hämtningen av NY Times News:", error);
+    showError("Något gick fel med hämtningen av nyheterna. Försök igen senare.");
   }
 }
 
@@ -125,8 +126,8 @@ async function fetchFinance() {
     }));
     newsData.push(...mappedData);
   } catch (error) {
-    console.error("Error fetching Finance News:", error);
-    showError("Something went wrong while fetching the finance news. Please try again later.");
+    console.error("Error med hämtningen av Ekonomi nyheterna:", error);
+    showError("Något gick fel med hämtningen av nyheterna. Försök igen senare.");
   }
 }
 
@@ -146,8 +147,8 @@ async function fetchTechNews() {
     newsData.push(...mappedData);
     listItems();
   } catch (error) {
-    console.error("Error fetching Technology News:", error);
-    showError("Something went wrong while fetching the technology news. Please try again later.");
+    console.error("Error med hämtningen av Teknik nyheterna:", error);
+    showError("Något gick fel med hämtningen av nyheterna. Försök igen senare.");
   }
 }
 
@@ -157,8 +158,8 @@ async function fetchMostViewed() {
     const data = await limitedRequest(`https://api.nytimes.com/svc/mostpopular/v2/viewed/1.json?api-key=kzvccXW2l1EAE3toa0N5GFkWFozAqtqv`);
     heroLayout(data.results);
   } catch (error) {
-    console.error("Error fetching Most Viewed Articles:", error);
-    showError("Something went wrong while fetching the most viewed articles. Please try again later.");
+    console.error("Error med hämtningen av mest lästa artiklarna:", error);
+    showError("Något gick fel med hämtningen av nyheterna. Försök igen senare.");
   }
 }
 
@@ -193,11 +194,20 @@ function listItems(items = newsData) {
 }
 
 // Call functions to fetch data
-fetchNews();
-fetchSports();
-fetchFinance();
-fetchTechNews();
-fetchMostViewed();
+async function fetchAllNews() {
+  try {
+    await Promise.all([
+      fetchNews(),
+      fetchSports(),
+      fetchFinance(),
+      fetchTechNews(),
+      fetchMostViewed()
+    ]);
+  } catch (error) {
+    console.error("Error för hämtningen av alla nyheter: ", error);
+    showError("Något gick fel med hämtningen av nyheterna. Försök igen senare.");
+  }
+}
 
 // Category Filter
 const categorySelect = document.querySelector("#categoryFilter");
@@ -279,3 +289,7 @@ function heroLayout(articles) {
     </div>
   `;
 }
+
+// Fetching all news and real-time updates with setInterval - 5 min
+fetchAllNews();
+setInterval(fetchAllNews, 300000);
