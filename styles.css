@@ -186,7 +186,7 @@ main {
 .heroArticleTitle {
     font-size: 1.5rem;
     min-height: 5rem;
-    margin: 10px 0 10px 0;
+    margin: 10px;
 }
 
 .heroAbstract {
@@ -236,7 +236,7 @@ main {
   
 .error-modal-content p {
     position: relative;
-    left: -880px;
+    left: -800px;
 }
 
 .error-modal-content {
