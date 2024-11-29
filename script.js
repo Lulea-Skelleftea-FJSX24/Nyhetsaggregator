@@ -99,7 +99,7 @@ async function fetchNews() {
     listItems();  // Call listItems to display data
   } catch (error) {
     console.error("Fel vid hämtningen av NY Times News:", error);
-    showError("Något gick fel med hämtningen av nyheterna. Försök igen senare.");
+    showError("Något gick fel med hämtningen av nyheterna från Ny Times. Försök igen senare.");
   }
 }
 
@@ -108,7 +108,7 @@ async function fetchSports() {
   try {
     const data = await limitedRequest(`https://api.nytimes.com/svc/search/v2/articlesearch.json?fq=news_desk:("Sports") AND glocations:("SWEDEN")&page=1&api-key=${apiKey}`);
     if (!data || !data.response || !Array.isArray(data.response.docs) || data.response.docs.length === 0) {
-      throw new Error("API:n returnerade inga sportnyheter.");
+      throw new Error("API:n returnerade inga sport nyheter.");
     }
 
     const mappedData = data.response.docs.map((item) => ({
@@ -123,8 +123,8 @@ async function fetchSports() {
 
     newsData.push(...mappedData);
   } catch (error) {
-    console.error("Fel vid hämtningen av NY Times News:", error);
-    showError("Något gick fel med hämtningen av nyheterna. Försök igen senare.");
+    console.error("Fel vid hämtningen av NY Times sport News:", error);
+    showError("Något gick fel med hämtningen av sport nyheterna. Försök igen senare.");
   }
 }
 
@@ -133,7 +133,7 @@ async function fetchFinance() {
   try {
     const data = await limitedRequest(`https://api.polygon.io/v2/reference/news?limit=10&apiKey=Gb0Zk23fNHM0ID44E87pSMwzyykofNwp`);
     if (!data || !Array.isArray(data.results) || data.results.length === 0) {
-      throw new Error("API:n returnerade inga ekonominyheter.");
+      throw new Error("API:n returnerade inga ekonomi nyheter.");
     }
 
     const mappedData = data.results.map((item) => ({
@@ -148,7 +148,7 @@ async function fetchFinance() {
     newsData.push(...mappedData);
   } catch (error) {
     console.error("Fel vid hämtningen av Ekonomi nyheterna:", error);
-    showError("Något gick fel med hämtningen av nyheterna. Försök igen senare.");
+    showError("Något gick fel med hämtningen av Ekonomi nyheterna. Försök igen senare.");
   }
 }
 
@@ -157,7 +157,7 @@ async function fetchTechNews() {
   try {
     const data = await limitedRequest(`https://newsdata.io/api/1/latest?apikey=pub_60058e2153ce481b3839350359f8847a3946c&category=technology&language=en`);
     if (!data || !Array.isArray(data.results) || data.results.length === 0) {
-      throw new Error("API:n returnerade inga tekniknyheter.");
+      throw new Error("API:n returnerade inga teknik nyheter.");
     }
 
     const mappedData = data.results.map((item) => ({
@@ -172,8 +172,8 @@ async function fetchTechNews() {
     newsData.push(...mappedData);
     listItems();
   } catch (error) {
-    console.error("Fel vid hämtningen av teknik nyheterna:", error);
-    showError("Något gick fel med hämtningen av nyheterna. Försök igen senare.");
+    console.error("Fel vid hämtningen av Teknik nyheterna:", error);
+    showError("Något gick fel med hämtningen av Teknik nyheterna. Försök igen senare.");
   }
 }
 
@@ -184,7 +184,7 @@ async function fetchMostViewed() {
     heroLayout(data.results);
   } catch (error) {
     console.error("Error med hämtningen av mest lästa artiklarna:", error);
-    showError("Något gick fel med hämtningen av nyheterna. Försök igen senare.");
+    showError("Något gick fel med hämtningen av de mest lästa artiklarna. Försök igen senare.");
   }
 }
 
