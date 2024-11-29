@@ -357,7 +357,9 @@ function heroLayout(articles) {
     <div class="articleContent">
     <p class="heroAbstract">${article1.abstract}</p>
     ${imageUrl1 ? `<img src="${imageUrl1}" alt="Bild av nyhet">` : ""}
-    <button class="buttonToArticle" onclick="window.open('${article1.url}', '_blank')">Läs Mer Här</button>
+    <button class="buttonToArticle" onclick="window.open('${
+      article1.url
+    }', '_blank')">Läs Mer Här</button>
     </div>
     `;
 
@@ -372,7 +374,9 @@ function heroLayout(articles) {
     <div class="articleContent">
     <p class="heroAbstract">${article2.abstract}</p>
     ${imageUrl2 ? `<img src="${imageUrl2}" alt="Bild av nyhet">` : ""}
-    <button class="buttonToArticle" onclick="window.open('${article2.url}', '_blank')">Läs Mer Här</button>
+    <button class="buttonToArticle" onclick="window.open('${
+      article2.url
+    }', '_blank')">Läs Mer Här</button>
     </div>
     `;
   } catch (error) {
