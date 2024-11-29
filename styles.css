@@ -1,5 +1,4 @@
 .error-modal {
-    display: none;
     position: fixed;
     display: flex;
     justify-content: center;
@@ -11,6 +10,7 @@
     height: 100%;
     overflow: auto;
     background-color: rgba(0, 0, 0, 0.4); /* Mörk bakgrund */
+    display: none;
 }
   
 .error-modal-content {
