@@ -95,7 +95,7 @@ async function fetchSports() {
   try {
     const data = await limitedRequest(`https://api.nytimes.com/svc/search/v2/articlesearch.json?fq=news_desk:("Sports") AND glocations:("SWEDEN")&page=1&api-key=${apiKey}`);
     const mappedData = data.response.docs.map((item) => ({
-      category: "sports",
+      category: "sport",
       title: item.headline.main,
       url: item.web_url,
       abstract: item.abstract,
