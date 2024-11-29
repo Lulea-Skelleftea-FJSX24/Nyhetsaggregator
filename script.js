@@ -302,6 +302,9 @@ function filterByCategory(event) {
 }
 
 // Search Functionality
+const searchForm = document.querySelector("#searchForm");
+searchForm.addEventListener("submit", search);
+
 async function search(event) {
   event.preventDefault();
 
