@@ -14,6 +14,8 @@
 }
   
 .error-modal-content {
+    display: flex;
+    flex-direction: row-reverse;
     position: relative;
     background-color: #fefefe;
     margin: 15% auto;
@@ -26,8 +28,15 @@
 }
 
 .close-modal {
-    color: #aaa;
-    float: right;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: rgb(222, 69, 69);
+    padding: 10px;
+    border-radius: 5px;
+    width: 20px;
+    height: 20px;
+    color: #f4f4f4;
     font-size: 28px;
     font-weight: bold;
     cursor: pointer;
