@@ -219,8 +219,10 @@ main {
 }
 
 .error-modal {
-    display: none; /* Bör vara dold som standard */
     position: fixed;
+    display: flex;
+    justify-content: center;
+    align-items: center;
     z-index: 1000;
     left: 0;
     top: 0;
@@ -228,21 +230,33 @@ main {
     height: 100%;
     overflow: auto;
     background-color: rgba(0, 0, 0, 0.4); /* Mörk bakgrund */
+    display: none;
 }
   
 .error-modal-content {
+    display: flex;
+    flex-direction: row-reverse;
+    position: relative;
     background-color: #fefefe;
     margin: 15% auto;
     padding: 20px;
     border: 1px solid #888;
     width: 80%;
+    top: -50px;
     box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
     border-radius: 10px;
 }
-  
+
 .close-modal {
-    color: #aaa;
-    float: right;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: rgb(222, 69, 69);
+    padding: 10px;
+    border-radius: 5px;
+    width: 20px;
+    height: 20px;
+    color: #f4f4f4;
     font-size: 28px;
     font-weight: bold;
     cursor: pointer;
