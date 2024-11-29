@@ -48,7 +48,7 @@ async function limitedRequest(url) {
   if (requestCount >= maxRequestsPerMinute) {
     const timeToNextMinute = 60000 - timeElapsed % 60000; // Wait until the next minute
     console.log(`För många förfrågningar på kort tid. Väntar i ${timeToNextMinute / 1000} sekunder...`);
-    showError(`För många förfrågningar på kort tid. Väntar i ${timeToNextMinute / 1000} sekunder`);
+    showError(`Vi har tillfälligt nått gränsen för antal förfrågningar. Försök igen om en stund`);
     await new Promise(resolve => setTimeout(resolve, timeToNextMinute));
     requestCount = 0; // Restarts the counter when a new minute begins
   }
@@ -61,12 +61,19 @@ async function limitedRequest(url) {
   try {
     const response = await fetch(url);
     if (!response.ok) {
-      throw new Error(`Error with response: ${response.status} - ${response.statusText}`);
+      if (response.status === 400) {
+        throw new Error("Resursen kunde inte hittas (404).");
+      } else if (response.status === 500) {
+        throw new Error("Serverfel (500). Försök igen senare.");
+      } else {
+        throw new Error(`Error med response: ${response.status} - ${response.statusText}`);
+      }
     }
     return await response.json();
   } catch (error) {
-    console.error("Fel vid API-anrop:", error);
-    throw error;  // Throws along the error to deal with later
+    console.error("Fel vid API-anrop:", error.message);
+    throw new Error("Nätverksfel eller API-problem. Kontrollera din internetanslutning.");
+    
   }
 }
 
@@ -74,6 +81,10 @@ async function limitedRequest(url) {
 async function fetchNews() {
   try {
     const data = await limitedRequest(`https://api.nytimes.com/svc/topstories/v2/home.json?api-key=${apiKey}`);
+    if (!data || !data.results || data.results.length === 0) {
+      throw new Error("API:n returnerade inga nyheter");
+    }
+
     const mappedData = data.results.map((item) => ({
       category: "Top news",
       title: item.title,
@@ -83,10 +94,11 @@ async function fetchNews() {
       multimedia: item.multimedia[1],
       datum: item.updated_date,
     }));
+    
     newsData.push(...mappedData);
     listItems();  // Call listItems to display data
   } catch (error) {
-    console.error("Error med hämtningen av NY Times News:", error);
+    console.error("Fel vid hämtningen av NY Times News:", error);
     showError("Något gick fel med hämtningen av nyheterna. Försök igen senare.");
   }
 }
@@ -95,6 +107,10 @@ async function fetchNews() {
 async function fetchSports() {
   try {
     const data = await limitedRequest(`https://api.nytimes.com/svc/search/v2/articlesearch.json?fq=news_desk:("Sports") AND glocations:("SWEDEN")&page=1&api-key=${apiKey}`);
+    if (!data || !data.response || !Array.isArray(data.response.docs) || data.response.docs.length === 0) {
+      throw new Error("API:n returnerade inga sportnyheter.");
+    }
+
     const mappedData = data.response.docs.map((item) => ({
       category: "sport",
       title: item.headline.main,
@@ -104,9 +120,10 @@ async function fetchSports() {
       multimedia: item.multimedia[1],
       datum: item.pub_date,
     }));
+
     newsData.push(...mappedData);
   } catch (error) {
-    console.error("Error med hämtningen av NY Times News:", error);
+    console.error("Fel vid hämtningen av NY Times News:", error);
     showError("Något gick fel med hämtningen av nyheterna. Försök igen senare.");
   }
 }
@@ -115,6 +132,10 @@ async function fetchSports() {
 async function fetchFinance() {
   try {
     const data = await limitedRequest(`https://api.polygon.io/v2/reference/news?limit=10&apiKey=Gb0Zk23fNHM0ID44E87pSMwzyykofNwp`);
+    if (!data || !Array.isArray(data.results) || data.results.length === 0) {
+      throw new Error("API:n returnerade inga ekonominyheter.");
+    }
+
     const mappedData = data.results.map((item) => ({
       category: "Finance",
       title: item.title,
@@ -126,7 +147,7 @@ async function fetchFinance() {
     }));
     newsData.push(...mappedData);
   } catch (error) {
-    console.error("Error med hämtningen av Ekonomi nyheterna:", error);
+    console.error("Fel vid hämtningen av Ekonomi nyheterna:", error);
     showError("Något gick fel med hämtningen av nyheterna. Försök igen senare.");
   }
 }
@@ -135,6 +156,10 @@ async function fetchFinance() {
 async function fetchTechNews() {
   try {
     const data = await limitedRequest(`https://newsdata.io/api/1/latest?apikey=pub_60058e2153ce481b3839350359f8847a3946c&category=technology&language=en`);
+    if (!data || !Array.isArray(data.results) || data.results.length === 0) {
+      throw new Error("API:n returnerade inga tekniknyheter.");
+    }
+
     const mappedData = data.results.map((item) => ({
       category: "technology",
       title: item.title,
@@ -147,7 +172,7 @@ async function fetchTechNews() {
     newsData.push(...mappedData);
     listItems();
   } catch (error) {
-    console.error("Error med hämtningen av Teknik nyheterna:", error);
+    console.error("Fel vid hämtningen av teknik nyheterna:", error);
     showError("Något gick fel med hämtningen av nyheterna. Försök igen senare.");
   }
 }
@@ -203,9 +228,11 @@ async function fetchAllNews() {
       fetchTechNews(),
       fetchMostViewed()
     ]);
+    console.log("Alla nyheter har hämtats utan problem!");
+
   } catch (error) {
-    console.error("Error för hämtningen av alla nyheter: ", error);
-    showError("Något gick fel med hämtningen av nyheterna. Försök igen senare.");
+    console.error("Fel vid hämtningen av alla nyheter: ", error);
+    showError("Ett fel uppstod vid hämtningen av nyheterna. Försök igen senare.");
   }
 }
 
@@ -225,7 +252,7 @@ function filterByCategory(event) {
   Array.from(newsList.children).forEach(child => newsList.removeChild(child));
 
   if (filteredNewsData.length === 0) {
-    newsList.innerHTML = "<p>Inga nyheter i kategorin.</p>";
+    newsList.innerHTML = "<p>Inga nyheter hittades för denna kategori.</p>";
   } else {
     listItems(filteredNewsData);
   }
@@ -260,36 +287,48 @@ async function search(event) {
 
 // Hero Layout for most popular articles
 function heroLayout(articles) {
-  if (!articles || articles.length < 2) return;
-
-  const article1Element = document.getElementById("article1");
-  const article2Element = document.getElementById("article2");
-
-  if (!article1Element || !article2Element) return;
-
-  const article1 = articles[0];
-  const imageUrl1 = article1.media && article1.media[0] && article1.media[0]['media-metadata'] ? article1.media[0]['media-metadata'][2].url : '';
-  article1Element.innerHTML = `
+  try {
+    if (!articles || articles.length < 2) {
+      throw new Error("Otillräckliga artiklar för hero-layout.");
+    }
+    
+    
+    const article1Element = document.getElementById("article1");
+    const article2Element = document.getElementById("article2");
+    
+    if (!article1Element || !article2Element) {
+      throw new Error("Hero-element hittades inte på sidan.");
+    }
+    
+    const article1 = articles[0];
+    const imageUrl1 = article1.media && article1.media[0] && article1.media[0]['media-metadata'] ? article1.media[0]['media-metadata'][2].url : '';
+    
+    article1Element.innerHTML = `
     <h1 class="heroArticleTitle">${article1.title}</h1>
     <div class="articleContent">
-      <p class="heroAbstract">${article1.abstract}</p>
-      <img src="${imageUrl1}" alt="Bild av nyhet">
-      <button class="buttonToArticle" onclick="window.open('${article1.url}', '_blank')">Läs Mer Här</button>
+    <p class="heroAbstract">${article1.abstract}</p>
+    <img src="${imageUrl1}" alt="Bild av nyhet">
+    <button class="buttonToArticle" onclick="window.open('${article1.url}', '_blank')">Läs Mer Här</button>
     </div>
-  `;
-
-  const article2 = articles[1];
-  const imageUrl2 = article2.media && article2.media[0] && article2.media[0]['media-metadata'] ? article2.media[0]['media-metadata'][2].url : '';
-  article2Element.innerHTML = `
+    `;
+    
+    const article2 = articles[1];
+    const imageUrl2 = article2.media && article2.media[0] && article2.media[0]['media-metadata'] ? article2.media[0]['media-metadata'][2].url : '';
+    
+    article2Element.innerHTML = `
     <h1 class="heroArticleTitle">${article2.title}</h1>
     <div class="articleContent">
-      <p class="heroAbstract">${article2.abstract}</p>
-      <img src="${imageUrl2}" alt="Bild av nyhet">
-      <button class="buttonToArticle" onclick="window.open('${article2.url}', '_blank')">Läs Mer Här</button>
+    <p class="heroAbstract">${article2.abstract}</p>
+    <img src="${imageUrl2}" alt="Bild av nyhet">
+    <button class="buttonToArticle" onclick="window.open('${article2.url}', '_blank')">Läs Mer Här</button>
     </div>
-  `;
+    `;
+  } catch (error) {
+    console.error("Fel vid visning av hero-layout: ", error);
+    showError("Kunde inte visa populära artiklar. Försök igen senare.");
+  }
 }
-
+  
 // Fetching all news and real-time updates with setInterval - 5 min
 fetchAllNews();
 setInterval(fetchAllNews, 300000);
