@@ -147,9 +147,9 @@ async function fetchSports() {
 
     console.log(data);
   } catch (error) {
-    console.error("Error fetching Sports News:", error);
+    console.error("Fel vid hämtningen av sport nyheterna:", error);
     showError(
-      "Something went wrong while fetching the sports news. Please try again later."
+      "Något gick fel med hämtningen av sport nyheterna. Försök igen senare."
     );
   }
 }
