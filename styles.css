@@ -1,6 +1,9 @@
 .error-modal {
-    display: none; /* Bör vara dold som standard */
+    /* display: none; Bör vara dold som standard */
     position: fixed;
+    display: flex;
+    justify-content: center;
+    align-items: center;
     z-index: 1000;
     left: 0;
     top: 0;
@@ -11,11 +14,13 @@
 }
   
 .error-modal-content {
+    position: relative;
     background-color: #fefefe;
     margin: 15% auto;
     padding: 20px;
     border: 1px solid #888;
     width: 80%;
+    top: -50px;
     box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
     border-radius: 10px;
 }
