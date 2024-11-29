@@ -6,6 +6,7 @@ Nu kan du kolla in våran norrskens sida och läsa nyheterna!
 
 Man kan filtrera nyheter baserat på vilken typ av nyhet du vill se (topnyheter, sport, teknik och ekonomi)
 Du kan också skriva in sökord för att filtrera nyheter.
+Den uppdaterar sidan automatiskt var femte minut.
 
 
 
