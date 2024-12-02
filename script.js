@@ -96,15 +96,23 @@ async function fetchNews() {
       throw new Error("API:n returnerade inga nyheter");
     }
 
-    const mappedData = data.results.map((item) => ({
+    const mappedData = data.results.map((item) => {
+      let multiMediaUrl = null;
+
+      if (item.multimedia && Array.isArray(item.multimedia) && item.multimedia[1]) {
+        multiMediaUrl = item.multimedia[1].url;
+      }
+      
+      return {
       category: "Top news",
       title: item.title,
       url: item.url,
       abstract: item.abstract,
       byline: item.byline,
-      multimedia: item.multimedia[1],
+      multimedia: multiMediaUrl ? { url: multiMediaUrl } : null,
       datum: item.updated_date,
-    }));
+      };
+    });
 
     newsData.push(...mappedData);
     listItems(); // Call listItems to display data
